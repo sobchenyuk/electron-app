@@ -1,10 +1,9 @@
 {
-  "name": "electron-app",
+  "name": "clipflow",
   "version": "1.0.0",
-  "description": "An Electron application with React and TypeScript",
+  "description": "ClipFlow desktop clipboard sync application",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://electron-vite.org",
+  "author": "Andrii Sobcheniuk",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",
@@ -16,9 +15,14 @@
     "build": "npm run typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir",
-    "build:win": "npm run build && electron-builder --win",
-    "build:mac": "electron-vite build && electron-builder --mac",
-    "build:linux": "electron-vite build && electron-builder --linux"
+    "build:mac": "npm run build && electron-builder --mac --x64 --arm64",
+    "build:mac:x64": "npm run build && electron-builder --mac --x64",
+    "build:mac:arm64": "npm run build && electron-builder --mac --arm64",
+    "build:win": "npm run build && electron-builder --win --x64 --arm64",
+    "build:win:x64": "npm run build && electron-builder --win --x64",
+    "build:win:arm64": "npm run build && electron-builder --win --arm64",
+    "build:linux": "npm run build && electron-builder --linux --x64",
+    "build:linux:x64": "npm run build && electron-builder --linux --x64"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
@@ -61,58 +65,5 @@
     "tailwindcss": "^3.4.19",
     "typescript": "~5.8.3",
     "vite": "^7.0.4"
-  },
-  "build": {
-    "appId": "com.clipflow.desktop",
-    "productName": "ClipFlow",
-    "asar": true,
-    "directories": {
-      "output": "release"
-    },
-    "files": [
-      "out/**/*",
-      "package.json"
-    ],
-    "mac": {
-      "target": [
-        {
-          "target": "dmg",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        },
-        {
-          "target": "zip",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        }
-      ],
-      "category": "public.app-category.productivity",
-      "icon": "resources/icon.png"
-    },
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        }
-      ]
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ],
-      "category": "Utility"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
-    }
   }
 }
