@@ -1,0 +1,41 @@
+name: Build and Release ClipFlow
+
+on:
+  push:
+    tags:
+      - 'v*' # Срабатывает, когда ты создаешь тег версии (например, v1.0.0)
+
+jobs:
+  release:
+    name: Build for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        # GitHub поднимает Windows (x86_64) и Linux (x86_64) машины в облаке
+        os: [windows-latest, ubuntu-latest]
+
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Build and Electron-Builder
+        # Запускаем твои универсальные скрипты сборки
+        run: |
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            npm run build:win
+          else
+            npm run build:linux
+          fi
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
