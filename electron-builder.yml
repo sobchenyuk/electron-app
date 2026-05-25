@@ -43,5 +43,3 @@ appImage:
 deb:
   artifactName: ${productName}-${version}-${arch}.${ext}
 npmRebuild: false
-electronDownload:
-  mirror: https://npmmirror.com/mirrors/electron/
