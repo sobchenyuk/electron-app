@@ -1,6 +1,6 @@
 {
   "name": "clipflow",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "ClipFlow desktop clipboard sync application",
   "main": "./out/main/index.js",
   "author": "Andrii Sobcheniuk",
